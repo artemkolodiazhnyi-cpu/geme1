@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="géme — discover, swipe, and shop complete outfits. Editorial fashion inspiration meets instant checkout." />
+  <title>géme — outfit. inspired. yours.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="toast" id="toast"></div>
+
+  <nav class="topbar">
+    <a class="brand" href="#hero">géme</a>
+    <div class="menu">
+      <a href="#feed">Explore</a>
+      <a href="#how">How it works</a>
+      <a href="#recs">Recommendations</a>
+      <a href="./outfits-swipe.html">Swipe Looks</a>
+    </div>
+    <div class="actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️ Light</button>
+      <button class="cart-btn" id="cartBtn" aria-label="Open cart">
+        Cart <span id="cartCount">0</span>
+      </button>
+      <button class="button button-secondary" id="authBtn">Join géme</button>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">видіш outfit → інспіруєшся → купуєш одним кліком</p>
+        <h1>Outfit.<br /><span>Inspired.</span><br />Yours.</h1>
+        <p class="hero-text">See it. Love it. Buy the whole look — in one click. A clean, editorial playground for instant fashion inspiration.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#feed">Explore Looks</a>
+          <button class="button button-outline" id="joinBtn">Join géme</button>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="gif-card gif-large editorial-banner">
+          <img src="./RO RMNS Transparent.jpeg"
+               alt="Rick Owens SS19 Babel Transparent Leather Ramones"
+               class="editorial-img" />
+          <div class="editorial-overlay">
+            <div class="editorial-meta">
+              <span class="editorial-season">SS19 — Babel</span>
+              <span class="editorial-dot">·</span>
+              <span class="editorial-brand-tag">Rick Owens</span>
+            </div>
+            <h2 class="editorial-title">Transparent Leather<br>Ramones High</h2>
+            <button class="editorial-shop-btn" id="bannerShopBtn">Shop Now →</button>
+          </div>
+          <div class="gif-label">Editorial Motion</div>
+        </div>
+        <div class="gif-grid">
+          <div class="gif-card gif-small">Street Rhythm</div>
+          <div class="gif-card gif-small">Neon Cut</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="feed">
+      <div class="section-header reveal">
+        <span class="section-tag">Shoppable outfit feed</span>
+        <h2>Choose a look and shop every detail.</h2>
+      </div>
+      <div class="outfit-grid reveal" id="outfitGrid"></div>
+    </section>
+
+    <section class="section section-light" id="how">
+      <div class="section-header reveal">
+        <span class="section-tag">How it works</span>
+        <h2>Three simple steps from inspiration to checkout.</h2>
+      </div>
+      <div class="steps-grid reveal">
+        <article class="step-card">
+          <div class="step-number">01</div>
+          <h3>Browse curated ideas</h3>
+          <p>Swipe through looks made for your mood, aesthetic, and energy.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-number">02</div>
+          <h3>Tap for details</h3>
+          <p>Reveal product tags and instantly compare the pieces you love.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-number">03</div>
+          <h3>Buy the whole look</h3>
+          <p>Add every item to your cart with one smooth checkout step.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="recs">
+      <div class="recs-header reveal">
+        <span>Because you liked Street Chic →</span>
+      </div>
+      <div class="recs-strip reveal" id="recsStrip"></div>
+    </section>
+
+    <section class="section" id="products">
+      <div class="section-header reveal">
+        <h2>Shop Individual Pieces</h2>
+        <p>Find the perfect items for your style</p>
+      </div>
+      <div class="products-grid" id="productsGrid"></div>
+    </section>
+  </main>
+
+  <footer class="footer reveal">
+    <div class="footer-brand">
+      <div class="footer-logo">géme</div>
+      <p>See outfit. Love it. Buy it.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#feed">Explore</a>
+      <a href="#how">About</a>
+      <a href="#recs">For Brands</a>
+      <a href="#hero">Contact</a>
+    </div>
+    <div class="footer-social">
+      <a href="#" aria-label="géme on Instagram" rel="noopener">Instagram</a>
+      <a href="#" aria-label="géme on TikTok" rel="noopener">TikTok</a>
+      <a href="#" aria-label="géme on Pinterest" rel="noopener">Pinterest</a>
+    </div>
+  </footer>
+
+  <!-- ── AUTH MODAL ──────────────────────────────────────────────────────── -->
+  <div class="modal-overlay" id="authModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <div class="modal-header">
+        <span class="modal-logo" id="modalTitle">géme</span>
+        <div class="modal-tabs">
+          <button class="tab-button active" data-tab="signup">Sign Up</button>
+          <button class="tab-button" data-tab="login">Log In</button>
+        </div>
+      </div>
+      <div class="modal-content">
+        <!-- Signup -->
+        <div class="auth-panel" id="signupPanel">
+          <div class="field-group">
+            <input type="text" id="su-name" placeholder="Full name" autocomplete="name" aria-label="Full name" aria-describedby="su-name-err" />
+            <span class="auth-error" id="su-name-err" role="alert"></span>
+          </div>
+          <div class="field-group">
+            <input type="email" id="su-email" placeholder="Email address" autocomplete="email" aria-label="Email address" aria-describedby="su-email-err" />
+            <span class="auth-error" id="su-email-err" role="alert"></span>
+          </div>
+          <div class="field-group">
+            <input type="password" id="su-pass" placeholder="Password (min 6 chars)" autocomplete="new-password" aria-label="Password, minimum 6 characters" aria-describedby="su-pass-err" />
+            <span class="auth-error" id="su-pass-err" role="alert"></span>
+          </div>
+          <button type="button" class="button button-primary" id="signupSubmit">Create Account</button>
+        </div>
+        <!-- Login -->
+        <div class="auth-panel hidden" id="loginPanel">
+          <div class="field-group">
+            <input type="email" id="li-email" placeholder="Email address" autocomplete="email" aria-label="Email address" aria-describedby="li-email-err" />
+            <span class="auth-error" id="li-email-err" role="alert"></span>
+          </div>
+          <div class="field-group">
+            <input type="password" id="li-pass" placeholder="Password" autocomplete="current-password" aria-label="Password" aria-describedby="li-pass-err" />
+            <span class="auth-error" id="li-pass-err" role="alert"></span>
+          </div>
+          <button type="button" class="button button-primary" id="loginSubmit">Log In</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CART DRAWER ────────────────────────────────────────────────────── -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-head">
+      <div>
+        <p class="cart-label">Your Cart</p>
+        <h3 id="cartTitle">Selected look</h3>
+      </div>
+      <button class="modal-close" id="cartClose" aria-label="Close cart">✕</button>
+    </div>
+    <div class="cart-list" id="cartList"></div>
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Total</span>
+        <strong id="cartTotal">€0</strong>
+      </div>
+      <button class="button button-primary" id="checkoutBtn">Checkout</button>
+    </div>
+  </aside>
+
+  <!-- ── PRODUCT MODAL ──────────────────────────────────────────────────── -->
+  <div class="modal-overlay" id="productModal" aria-hidden="true">
+    <div class="modal-card modal-card-wide" role="dialog" aria-modal="true" aria-labelledby="productName">
+      <button class="modal-close" id="productClose" aria-label="Close">✕</button>
+      <div class="product-details">
+        <!-- Visual -->
+        <div class="product-visual-large" id="productVisual"></div>
+        <!-- Info -->
+        <div class="product-info">
+          <span class="product-cat-badge" id="productCategory">tops</span>
+          <p class="product-modal-brand" id="productBrand"></p>
+          <h3 id="productName">Product Name</h3>
+          <p class="product-modal-price" id="productPrice">€0</p>
+          <div class="product-desc-block" id="productDescBlock"></div>
+
+          <div class="size-section">
+            <div class="size-label-row">
+              <label>Size</label>
+            </div>
+            <div class="size-buttons" id="productSizes"></div>
+          </div>
+
+          <div class="qty-section">
+            <label>Quantity</label>
+            <div class="qty-stepper">
+              <button class="qty-step-btn" id="qtyDec" aria-label="Decrease">−</button>
+              <input type="number" id="productQty" value="1" min="1" max="10" readonly />
+              <button class="qty-step-btn" id="qtyInc" aria-label="Increase">+</button>
+            </div>
+          </div>
+
+          <button class="button button-primary btn-full" id="addToCartBtn" disabled>Select a size first</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>

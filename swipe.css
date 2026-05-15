@@ -1,0 +1,373 @@
+/* ── SWIPE PAGE LAYOUT ───────────────────────────────────────────────────── */
+.swipe-page {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.swipe-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem 1rem 1.5rem;
+  /* overflow: hidden removed — body handles scroll prevention;
+     visible overflow lets card box-shadows render properly */
+}
+
+/* ── DECK ────────────────────────────────────────────────────────────────── */
+.swipe-deck {
+  position: relative;
+  width: min(100%, 400px);
+  height: 540px;
+  flex-shrink: 0;
+  margin: 0 auto; /* belt-and-suspenders centering */
+}
+
+/* ── CARD ────────────────────────────────────────────────────────────────── */
+.swipe-card {
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  will-change: transform;
+  /* stack-pos 0 = top; z-index stays below topbar (z-index: 10) */
+  transform: translateY(calc(var(--stack-pos, 0) * 10px))
+             scale(calc(1 - var(--stack-pos, 0) * 0.03));
+  z-index: calc(4 - var(--stack-pos, 0));
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.swipe-card:active { cursor: grabbing; }
+
+/* ── CARD VISUAL ─────────────────────────────────────────────────────────── */
+.swipe-card-visual {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 280px;
+}
+
+.swipe-card-emoji {
+  font-size: 5rem;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.35));
+  pointer-events: none;
+  z-index: 1;
+}
+
+.swipe-card-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.55) 100%);
+}
+
+/* ── CARD INFO ───────────────────────────────────────────────────────────── */
+.swipe-card-info {
+  padding: 1.25rem 1.4rem 1.4rem;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.swipe-tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+
+.swipe-name {
+  margin: 0 0 0.2rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.55rem;
+  line-height: 1.1;
+}
+
+.swipe-brand {
+  margin: 0 0 0.35rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.swipe-desc {
+  margin: 0 0 0.6rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.swipe-price {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* ── INDICATORS (LIKE / NOPE) ────────────────────────────────────────────── */
+.swipe-indicator {
+  position: absolute;
+  top: 1.5rem;
+  padding: 0.45rem 1rem;
+  border-radius: 10px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+  border: 3px solid currentColor;
+  text-transform: uppercase;
+  transition: opacity 0.05s linear;
+  transform: rotate(-15deg);
+}
+
+.like-indicator {
+  left: 1.5rem;
+  color: #4caf50;
+  transform: rotate(-15deg);
+}
+
+.nope-indicator {
+  right: 1.5rem;
+  color: var(--accent);
+  transform: rotate(15deg);
+}
+
+/* ── ACTIONS BAR ─────────────────────────────────────────────────────────── */
+.swipe-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  flex-shrink: 0;
+}
+
+.swipe-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  color: var(--text);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+}
+
+.swipe-btn:hover { transform: scale(1.1); }
+.swipe-btn:active { transform: scale(0.95); }
+
+.swipe-btn-dislike:hover { border-color: var(--accent); color: var(--accent); }
+.swipe-btn-like:hover    { border-color: #4caf50; color: #4caf50; }
+.swipe-btn-cart:hover    { border-color: var(--accent-soft); color: var(--accent-soft); }
+.swipe-btn-undo:hover    { border-color: var(--muted); color: var(--muted); }
+
+.swipe-btn-like,
+.swipe-btn-dislike {
+  width: 64px;
+  height: 64px;
+  font-size: 1.5rem;
+}
+
+/* ── COUNTER ─────────────────────────────────────────────────────────────── */
+.swipe-counter {
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ── EMPTY STATE ─────────────────────────────────────────────────────────── */
+.swipe-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  text-align: center;
+  padding: 2rem;
+  max-width: 360px;
+  width: 100%;
+}
+
+.swipe-empty-emoji {
+  font-size: 4rem;
+}
+
+.swipe-empty h2 {
+  margin: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+}
+
+.swipe-empty p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.swipe-empty-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ── LIKED MODAL ─────────────────────────────────────────────────────────── */
+.liked-modal-inner {
+  max-height: min(80vh, 600px);
+  display: flex;
+  flex-direction: column;
+}
+
+.liked-modal-title {
+  margin: 0 0 1.25rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+}
+
+.liked-list {
+  overflow-y: auto;
+  flex: 1;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.liked-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 0.85rem 1rem;
+}
+
+.liked-visual {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+
+.liked-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.liked-info h4 {
+  margin: 0 0 0.15rem;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.liked-info .liked-brand {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.liked-info .liked-price {
+  font-size: 0.88rem;
+  color: var(--accent);
+  font-weight: 700;
+  margin: 0.1rem 0 0;
+}
+
+.liked-shop-btn {
+  flex-shrink: 0;
+  padding: 0.55rem 1rem;
+  font-size: 0.82rem;
+}
+
+.liked-empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 2rem;
+}
+
+/* ── NAV LIKED BADGE ────────────────────────────────────────────────────── */
+.liked-nav-btn {
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 0.95rem 1.4rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.liked-nav-btn:hover { background: rgba(255,255,255,0.12); }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
+@media (max-height: 700px) {
+  .swipe-deck { height: 460px; }
+  .swipe-card-visual { min-height: 200px; }
+  .swipe-main { gap: 1rem; padding: 0.75rem 1rem 1rem; }
+}
+
+@media (max-height: 580px) {
+  .swipe-deck { height: 380px; }
+  .swipe-card-info { padding: 0.75rem 1rem; }
+  .swipe-desc { display: none; }
+  .swipe-main { gap: 0.75rem; }
+}
+
+@media (max-width: 440px) {
+  .swipe-deck { width: 100%; }
+  .swipe-card-info { padding: 1rem 1.1rem 1.1rem; }
+  .swipe-name { font-size: 1.3rem; }
+  .swipe-main { padding: 0.75rem 0.5rem 1rem; }
+}
+
+/* ── SWIPE PAGE NAV: compact on mobile ───────────────────────────────────── */
+@media (max-width: 640px) {
+  .swipe-page .topbar {
+    padding: 12px 16px;
+    gap: 0.5rem;
+  }
+  .swipe-page .theme-toggle {
+    display: none;
+  }
+  .swipe-page .liked-nav-btn {
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
+  .swipe-page .cart-btn {
+    padding: 0.75rem 0.9rem;
+    font-size: 0.85rem;
+  }
+  .swipe-page .button-secondary {
+    padding: 0.75rem 1rem;
+    font-size: 0.82rem;
+  }
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Swipe through curated outfits on géme. Like what you love, skip the rest, shop your favorites instantly." />
+  <title>Swipe Looks — géme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./swipe.css" />
+</head>
+<body class="swipe-page">
+
+  <div class="toast" id="toast"></div>
+
+  <!-- ── NAV ────────────────────────────────────────────────────────────────── -->
+  <nav class="topbar">
+    <a class="brand" href="./index.html">géme</a>
+    <div class="menu">
+      <a href="./index.html#feed">Explore</a>
+      <a href="./outfits-swipe.html" aria-current="page" style="color:var(--accent)">Swipe Looks</a>
+    </div>
+    <div class="actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️ Light</button>
+      <button class="liked-nav-btn" id="navLikedBtn" aria-label="View liked outfits">❤️ Liked</button>
+      <button class="cart-btn" id="cartNavBtn" aria-label="Go to cart">
+        Cart <span id="cartCount">0</span>
+      </button>
+      <button class="button button-secondary logged-in" id="authBtn">Join géme</button>
+    </div>
+  </nav>
+
+  <!-- ── SWIPE MAIN ─────────────────────────────────────────────────────────── -->
+  <main class="swipe-main" aria-label="Outfit swipe">
+
+    <!-- Card deck -->
+    <div class="swipe-deck" id="swipeDeck" role="region" aria-label="Outfit cards" aria-live="polite"></div>
+
+    <!-- Empty state -->
+    <div class="swipe-empty" id="swipeEmpty" hidden>
+      <div class="swipe-empty-emoji">🎉</div>
+      <h2>You've seen it all!</h2>
+      <p>You liked <strong id="likedCountEmpty">0</strong> outfits.<br />Check them out or start fresh.</p>
+      <div class="swipe-empty-actions">
+        <button class="button button-primary" id="btnViewLiked">View Liked ❤️</button>
+        <button class="button button-outline" id="btnRestart">Start Over ↺</button>
+      </div>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="swipe-actions" id="swipeActions" aria-label="Swipe actions">
+      <button class="swipe-btn swipe-btn-dislike" id="btnDislike" aria-label="Dislike outfit" title="Dislike (←)">✕</button>
+      <button class="swipe-btn swipe-btn-undo"    id="btnUndo"    aria-label="Undo last swipe"  title="Undo (Z)">↶</button>
+      <button class="swipe-btn swipe-btn-cart"    id="btnCart"    aria-label="Add outfit to cart" title="Add to cart">🛒</button>
+      <button class="swipe-btn swipe-btn-like"    id="btnLike"    aria-label="Like outfit"       title="Like (→)">♡</button>
+    </div>
+
+    <!-- Counter -->
+    <p class="swipe-counter" id="swipeCounter" aria-live="polite"></p>
+
+  </main>
+
+  <!-- ── LIKED MODAL ─────────────────────────────────────────────────────────── -->
+  <div class="modal-overlay" id="likedModal" aria-hidden="true">
+    <div class="modal-card modal-card-wide liked-modal-inner" role="dialog" aria-modal="true" aria-labelledby="likedModalTitle">
+      <button class="modal-close" id="likedModalClose" aria-label="Close liked outfits">✕</button>
+      <h3 class="liked-modal-title" id="likedModalTitle">Liked Outfits ❤️</h3>
+      <div class="liked-list" id="likedList"></div>
+    </div>
+  </div>
+
+  <script src="./swipe.js" defer></script>
+</body>
+</html>
