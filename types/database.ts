@@ -78,6 +78,7 @@ export interface OutfitItem {
   image_url: string | null
   sizes: string
   is_available: boolean
+  description: string | null
 }
 
 export interface CartItem {

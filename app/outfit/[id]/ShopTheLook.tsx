@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { useCart } from '@/contexts/CartContext'
 import type { OutfitItem, OutfitWithRelations } from '@/types/database'
 
@@ -127,6 +128,9 @@ export default function ShopTheLook({ outfit, items }: Props) {
                             {item.category}
                           </span>
                           <p className="font-medium mt-2 leading-snug">{item.name}</p>
+                          {item.description && (
+                            <p className="text-xs text-white/40 leading-relaxed mt-1">{item.description}</p>
+                          )}
                         </div>
                         <p className="text-[#e63946] font-bold flex-shrink-0">
                           €{Number(item.price).toLocaleString()}
@@ -160,6 +164,12 @@ export default function ShopTheLook({ outfit, items }: Props) {
                       >
                         {selected ? 'Add to Bag' : 'Select a size'}
                       </button>
+                      <Link
+                        href={`/products/${item.id}`}
+                        className="text-xs text-white/30 hover:text-white/60 transition-colors text-center"
+                      >
+                        View details →
+                      </Link>
                     </div>
                   )
                 })}

@@ -95,9 +95,10 @@ export default function ProductGrid({ products }: { products: ProductWithOutfit[
             const sizes = product.sizes.split(',').map(s => s.trim())
             const selected = selectedSizes[product.id]
             return (
-              <div
+              <Link
                 key={product.id}
-                className="border border-white/10 rounded-2xl p-5 flex flex-col gap-4 hover:border-white/30 transition-all bg-[#111]"
+                href={`/products/${product.id}`}
+                className="border border-white/10 rounded-2xl p-5 flex flex-col gap-4 hover:border-white/30 transition-all bg-[#111] group"
               >
                 {/* Visual */}
                 <div className="aspect-square rounded-xl overflow-hidden">
@@ -105,7 +106,7 @@ export default function ProductGrid({ products }: { products: ProductWithOutfit[
                   <img
                     src={fashionImages[index % fashionImages.length]}
                     alt={product.name}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
 
@@ -122,11 +123,11 @@ export default function ProductGrid({ products }: { products: ProductWithOutfit[
                 </div>
 
                 {/* Sizes */}
-                <div className="flex flex-wrap gap-1">
+                <div className="flex flex-wrap gap-1" onClick={e => e.preventDefault()}>
                   {sizes.map(size => (
                     <button
                       key={size}
-                      onClick={() => handleSizeSelect(product.id, size)}
+                      onClick={e => { e.preventDefault(); handleSizeSelect(product.id, size) }}
                       className={`px-2 py-1 text-xs rounded-full border transition-all ${
                         selected === size
                           ? 'bg-white text-black border-white'
@@ -140,7 +141,7 @@ export default function ProductGrid({ products }: { products: ProductWithOutfit[
 
                 {/* Add to bag */}
                 <button
-                  onClick={() => addToCart(product)}
+                  onClick={e => { e.preventDefault(); addToCart(product) }}
                   disabled={!selected}
                   className={`w-full py-2 rounded-full text-sm font-medium transition-all ${
                     selected
@@ -152,13 +153,13 @@ export default function ProductGrid({ products }: { products: ProductWithOutfit[
                 </button>
 
                 {/* View full outfit link */}
-                <Link
-                  href={`/outfit/${product.outfit_id}`}
-                  className="text-xs text-center text-white/30 hover:text-white/60 transition-colors"
+                <span
+                  onClick={e => { e.preventDefault(); window.location.href = `/outfit/${product.outfit_id}` }}
+                  className="text-xs text-center text-white/30 hover:text-white/60 transition-colors cursor-pointer"
                 >
                   View full look →
-                </Link>
-              </div>
+                </span>
+              </Link>
             )
           })}
         </div>
